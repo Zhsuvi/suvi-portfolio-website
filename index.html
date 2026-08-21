@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Suvi · 钟好 — Designer Portfolio</title>
-<link rel="stylesheet" href="style.css?v=20260821t">
+<link rel="stylesheet" href="style.css?v=20260821u">
 </head>
 <body>
 <header class="nav">
@@ -70,4 +70,17 @@
 </section>
 </main>
 <footer><span>© 2026 Suvi · 钟好</span><span>Designer Portfolio</span></footer>
+<script>
+  const revealItems = document.querySelectorAll('.hero-editorial > *, .section > .label, .section > h2, .about > div, .project > *, .two > *, .palette > *, .contact > *');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  revealItems.forEach((item, index) => { item.classList.add('reveal'); item.style.setProperty('--reveal-delay', `${Math.min(index % 4, 3) * 90}ms`); });
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    revealItems.forEach(item => item.classList.add('is-visible'));
+  } else {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => entry.target.classList.toggle('is-visible', entry.isIntersecting));
+    }, { threshold: 0.14, rootMargin: '0px 0px -7% 0px' });
+    revealItems.forEach(item => observer.observe(item));
+  }
+</script>
 </body></html>
